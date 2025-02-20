@@ -85,17 +85,8 @@ test_loader = DataLoader(test_dataset,
 dir(models)
 
  model = models.AlexNet(pretrained=False) # 只载入模型结构，不载入预训练权重参数
-
  model.fc = nn.Linear(model.fc.in_features, n_class)
+ optimizer = optim.Adam(model.parameters())
+ model = model.to(device)
 
-optimizer = optim.Adam(model.parameters())
-model = model.to(device)
-# 交叉熵损失函数
-criterion = nn.CrossEntropyLoss() 
-
-# 训练轮次 Epoch
-EPOCHS = 30
-
-# 学习率降低策略
-lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
 
