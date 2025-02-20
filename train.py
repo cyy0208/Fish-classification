@@ -1,159 +1,139 @@
-
-import time
 import os
-from tqdm import tqdm
-
+import time
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
 import pandas as pd
 import numpy as np
-
-import torch
+from tqdm import tqdm
 import torchvision
-import torch.nn as nn
-import torch.nn.functional as F
-import torchvision.models as models
-import torch.optim as optim
 from torch.optim import lr_scheduler
-import matplotlib.pyplot as plt
-
-rom sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+import wandb
 from thop import profile
 
-# device=torch.device("cuda:1" )
-model = model.to(device)
+# 初始化设备
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f"Device: {device}")
+
 # 交叉熵损失函数
-criterion = nn.CrossEntropyLoss() 
+criterion = nn.CrossEntropyLoss()
 
-# 训练轮次 Epoch
+# 训练轮次和学习率策略
 EPOCHS = 30
-
-# 学习率降低策略
 lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
 
-def train_one_batch(images, labels):
-    '''
+# 模型初始化
+model = torchvision.models.vgg11(pretrained=False).to(device)
+
+# 加载训练和测试数据的 DataLoader
+# train_loader, test_loader, df_train_log, df_test_log 初始化
+
+# 用于日志记录和评估的函数
+def train_one_batch(images, labels, model, optimizer, epoch, batch_idx):
+    """
     运行一个 batch 的训练，返回当前 batch 的训练日志
-    '''
+    """
+    images, labels = images.to(device), labels.to(device)
     
-    # 获得一个 batch 的数据和标注
-    images = images.to(device)
-    labels = labels.to(device)
+    outputs = model(images)
+    loss = criterion(outputs, labels)
     
-    outputs = model(images) # 输入模型，执行前向预测
-    loss = criterion(outputs, labels) # 计算当前 batch 中，每个样本的平均交叉熵损失函数值
-    
-    # 优化更新权重
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
     
-    # 获取当前 batch 的标签类别和预测类别
-    _, preds = torch.max(outputs, 1) # 获得当前 batch 所有图像的预测类别
+    _, preds = torch.max(outputs, 1)
     preds = preds.cpu().numpy()
     loss = loss.detach().cpu().numpy()
-    outputs = outputs.detach().cpu().numpy()
-    labels = labels.detach().cpu().numpy()
     
-    log_train = {}
-    log_train['epoch'] = epoch
-    log_train['batch'] = batch_idx
-    # 计算分类评估指标
-    log_train['train_loss'] = loss
-    log_train['train_accuracy'] = accuracy_score(labels, preds)
-    # log_train['train_precision'] = precision_score(labels, preds, average='macro')
-    # log_train['train_recall'] = recall_score(labels, preds, average='macro')
-    # log_train['train_f1-score'] = f1_score(labels, preds, average='macro')
+    log_train = {
+        'epoch': epoch,
+        'batch': batch_idx,
+        'train_loss': loss,
+        'train_accuracy': accuracy_score(labels.cpu().numpy(), preds)
+    }
     
     return log_train
-  def evaluate_testset():
-    '''
-    在整个测试集上评估，返回分类评估指标日志
-    '''
 
-    loss_list = []
-    labels_list = []
-    preds_list = []
+def evaluate_testset(model, test_loader):
+    """
+    在整个测试集上评估，返回分类评估指标日志
+    """
+    model.eval()
+    loss_list, labels_list, preds_list = [], [], []
     
     with torch.no_grad():
-        for images, labels in test_loader: # 生成一个 batch 的数据和标注
-            images = images.to(device)
-            labels = labels.to(device)
-            outputs = model(images) # 输入模型，执行前向预测
-
-            # 获取整个测试集的标签类别和预测类别
-            _, preds = torch.max(outputs, 1) # 获得当前 batch 所有图像的预测类别
-            preds = preds.cpu().numpy()
-            loss = criterion(outputs, labels) # 由 logit，计算当前 batch 中，每个样本的平均交叉熵损失函数值
-            loss = loss.detach().cpu().numpy()
-            outputs = outputs.detach().cpu().numpy()
-            labels = labels.detach().cpu().numpy()
-
-            loss_list.append(loss)
-            labels_list.extend(labels)
-            preds_list.extend(preds)
-        
-    log_test = {}
-    log_test['epoch'] = epoch
+        for images, labels in test_loader:
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            _, preds = torch.max(outputs, 1)
+            loss = criterion(outputs, labels)
+            
+            loss_list.append(loss.item())
+            labels_list.extend(labels.cpu().numpy())
+            preds_list.extend(preds.cpu().numpy())
     
-    # 计算分类评估指标
-    log_test['test_loss'] = np.mean(loss)
-    log_test['test_accuracy'] = accuracy_score(labels_list, preds_list)
-    log_test['test_precision'] = precision_score(labels_list, preds_list, average='macro')
-    log_test['test_recall'] = recall_score(labels_list, preds_list, average='macro')
-    log_test['test_f1-score'] = f1_score(labels_list, preds_list, average='macro')
+    log_test = {
+        'test_loss': np.mean(loss_list),
+        'test_accuracy': accuracy_score(labels_list, preds_list),
+        'test_precision': precision_score(labels_list, preds_list, average='macro'),
+        'test_recall': recall_score(labels_list, preds_list, average='macro'),
+        'test_f1-score': f1_score(labels_list, preds_list, average='macro')
+    }
     
     return log_test
 
-    import wandb
-    wandb.init(project='new fish ', name=time.strftime('%m%d%H%M%S'))
+# 定义训练过程
+def train_model(train_loader, test_loader, model, optimizer, EPOCHS):
+    """
+    训练模型并记录日志
+    """
+    wandb.init(project='new_fish', name=time.strftime('%m%d%H%M%S'))
+    df_train_log = pd.DataFrame()
+    df_test_log = pd.DataFrame()
+
+    best_test_accuracy = 0.0
+
     for epoch in range(1, EPOCHS+1):
-    
-    print(f'Epoch {epoch}/{EPOCHS}')
-    
-    ## 训练阶段
-    model.train()
-    for images, labels in tqdm(train_loader): # 获得一个 batch 的数据和标注
-        batch_idx += 1
-        log_train = train_one_batch(images, labels)
-        df_train_log = df_train_log.append(log_train, ignore_index=True)
-        wandb.log(log_train)
+        print(f'Epoch {epoch}/{EPOCHS}')
         
-    lr_scheduler.step()
+        # 训练阶段
+        model.train()
+        for batch_idx, (images, labels) in tqdm(enumerate(train_loader), total=len(train_loader)):
+            log_train = train_one_batch(images, labels, model, optimizer, epoch, batch_idx)
+            df_train_log = df_train_log.append(log_train, ignore_index=True)
+            wandb.log(log_train)
+        
+        lr_scheduler.step()
 
-    ## 测试阶段
-    model.eval()
-    log_test = evaluate_testset()
-    df_test_log = df_test_log.append(log_test, ignore_index=True)
-    wandb.log(log_test)
+        # 测试阶段
+        log_test = evaluate_testset(model, test_loader)
+        df_test_log = df_test_log.append(log_test, ignore_index=True)
+        wandb.log(log_test)
+
+        # 保存最佳模型
+        if log_test['test_accuracy'] > best_test_accuracy:
+            best_test_accuracy = log_test['test_accuracy']
+            new_best_checkpoint_path = f'checkpoints/best-{best_test_accuracy:.3f}.pth'
+            torch.save(model, new_best_checkpoint_path)
+            print(f'Saved best model: {new_best_checkpoint_path}')
     
-    # 保存最新的最佳模型文件
-    if log_test['test_accuracy'] > best_test_accuracy: 
-        # 删除旧的最佳模型文件(如有)
-        old_best_checkpoint_path = 'checkpoints/best-{:.3f}.pth'.format(best_test_accuracy)
-        if os.path.exists(old_best_checkpoint_path):
-            os.remove(old_best_checkpoint_path)
-        # 保存新的最佳模型文件
-        new_best_checkpoint_path = 'checkpoints/best-{:.3f}.pth'.format(log_test['test_accuracy'])
-        torch.save(model, new_best_checkpoint_path)
-        print('保存新的最佳模型', 'checkpoints/best-{:.3f}.pth'.format(best_test_accuracy))
-        best_test_accuracy = log_test['test_accuracy']
+    return df_train_log, df_test_log
 
-df_train_log.to_csv('训练日志-训练集.csv', index=False)
-df_test_log.to_csv('训练日志-测试集.csv', index=False) 
-model = torch.load('checkpoints/best-{:.3f}.pth'.format(best_test_accuracy)) 
-model.eval() 
-print(evaluate_testset())
-# torch.save(model, 'checkpoints/new fish_pytorch_squeezenet1_0 n.pth')
-# Model
-print('==> Building model..')
-model = torchvision.models.vgg11(pretrained=False)
+# 训练模型
+df_train_log, df_test_log = train_model(train_loader, test_loader, model, optimizer, EPOCHS)
 
+# 保存训练日志
+df_train_log.to_csv('train_log.csv', index=False)
+df_test_log.to_csv('test_log.csv', index=False)
+
+# 打印最佳测试集评估结果
+model = torch.load(f'checkpoints/best-{best_test_accuracy:.3f}.pth').eval()
+print(evaluate_testset(model, test_loader))
+
+# 打印模型的 FLOPS 和参数数量
 dummy_input = torch.randn(2, 3, 224, 224)
 flops, params = profile(model, (dummy_input,))
-print('flops: ', flops, 'params: ', params)
-print('flops: %.2f M, params: %.2f M' % (flops / 1000000.0, params / 1000000.0))
-
-    
+print(f'FLOPS: {flops/1e6:.2f} M, Parameters: {params/1e6:.2f} M')
