@@ -84,9 +84,6 @@ test_loader = DataLoader(test_dataset,
                         )
 dir(models)
 
- model = models.AlexNet(pretrained=False) # 只载入模型结构，不载入预训练权重参数
- model.fc = nn.Linear(model.fc.in_features, n_class)
- optimizer = optim.Adam(model.parameters())
- model = model.to(device)
+ 
 
 
