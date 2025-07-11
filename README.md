@@ -39,14 +39,7 @@ Run transfer learning scripts in folder `2-Transfer learning...` to fine-tune a 
 
 Use the evaluation tools in `3-Evaluate...` to analyze classification results and visualize metrics.
 
-## 🛠️ Requirements
 
-* Python ≥ 3.7
-* PyTorch ≥ 1.7
-* torchvision
-* OpenCV
-* scikit-learn
-  (Install all dependencies using `pip install -r requirements.txt`)
 
 
 
