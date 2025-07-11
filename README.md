@@ -13,7 +13,7 @@ Fish-classification/
 ├── 2-Transfer learning to train your own image classification model/
 │   └── Fine-tune pretrained models (e.g., ResNet, MobileNet) on your dataset.
 │
-├── 3-Evaluate the accuracy of the image classification algorithm/
+├── 3-Evaluate the accuracy of the image classification algorithm on the test set/
     └── Tools to assess model performance using accuracy, precision, recall, etc.
 ```
 
