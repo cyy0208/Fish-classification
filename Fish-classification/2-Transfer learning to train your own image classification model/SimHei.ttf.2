@@ -1,0 +1,1756 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="renderer" content="webkit" /> 
+    <title>校园网实名认证系统</title>
+    
+
+
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=7,IE=9,IE=EDGE">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="no-cache" />
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0">
+
+
+
+<script type="text/javascript" src="/portal/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/portal/js/jquery.layerModel.js"></script>
+
+<!--[if lt IE 9]>
+    <script type="text/javascript"  src="/portal/js/ie/respond.js"></script>
+<![endif]-->
+
+
+	
+	
+
+
+<link href="/portal/css/portalPageBase.css" type="text/css" media="all" rel="stylesheet" />
+<link href="/portal/css/layerModel.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/css/animate.min.css"/>
+
+    <link rel="stylesheet" href="/portal/uploads/pc/hb_pay/style.css?t=20171230">
+</head>
+<body>
+
+<form id="goLoginForm" method="post">
+<input id="loginType" name="loginType" type="hidden" value="" /> 
+<input id="auth_type" name="auth_type" type="hidden" value="0" /> 
+<input id="isBindMac1" name="isBindMac1" type="hidden" value="0" /> 
+<input id="pageid" type="hidden" name="pageid" value="4" /> 
+<input id="userid1" type="hidden" value="" disabled="disabled" /> 
+<input id="passwd1" type="hidden" value="" disabled="disabled" /> 
+<input id="listqqauth" type="hidden" name="listqqauth" value="" disabled="disabled"/>
+<input id="listwbauth" type="hidden" name="listwbauth" value="" disabled="disabled"/>
+<input id="listwxauth" type="hidden" name="listwxauth" value="0" disabled="disabled"/>
+<input id="listtwiceauth" type="hidden" name="listtwiceauth" value="0" disabled="disabled"/> <!-- 二次认证 -->
+<input id="terminalType" type="hidden" name="templatetype" value="1"/>
+<input id="listbindmac" type="hidden" name="listbindmac" value="0"/>
+<input id="recordmac" type="hidden" name="recordmac" value="0"/>
+<input id="listgetpass" type="hidden" value="0"/>
+<input id="areaId" type="hidden" value="0"/>
+<input type="hidden" id="logoutflag" value="2" />
+<input type="hidden" id="logouturl" value="" />
+<input type="hidden" id="listwxsysauth" value="" />
+<input type="hidden" id="listwxwifiauth" value="" />
+<input type="hidden" id="logoutgourl" value="" />
+
+<!-- 记住密码 -->
+<input type="hidden" id="isRemind" name="isRemind" value=""/>
+<input id="urlParameter" type="hidden" name="urlParameter" value="wlanacip=192.16.100.2&amp;wlanacname=zax_hzoffice&amp;wlanuserip=172.17.100.134&amp;mac=ac:1f:6b:a1:12:ad&amp;vlan=22&amp;url=http://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com" disabled="disabled"/>
+<input id="act" type="hidden" value="" disabled="disabled"/> 
+
+<input id="loginTimes" type="hidden" name="loginTimes" value=""/>
+<input id="groupId" type="hidden" name="groupId" value=""/>
+<input id="userid2" type="hidden" value="" disabled="disabled" /> 
+<input id="passwd2" type="hidden" value="" disabled="disabled" /> 
+<input id="wbUrl" type="hidden" value="/wbDeal.do?wlanacip=192.16.100.2&amp;wlanacname=zax_hzoffice&amp;wlanuserip=172.17.100.134&amp;mac=ac:1f:6b:a1:12:ad&amp;vlan=22&amp;url=http://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com&systemtype=1&pageid=4"/>
+<input id="qqUrl" type="hidden" value="/wbDeal.do?wlanacip=192.16.100.2&amp;wlanacname=zax_hzoffice&amp;wlanuserip=172.17.100.134&amp;mac=ac:1f:6b:a1:12:ad&amp;vlan=22&amp;url=http://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com&systemtype=2&pageid=4"/>
+
+<input id="portalVer" type="hidden" value="0"/> <!-- 协议版本 -->
+<input id="tservertypeid" type="hidden" value="axe" />
+
+<input id="wlanuserip" name="wlanuserip" type="hidden" value="172.17.100.134" disabled="disabled"/>
+<input id="wlanacname" name="wlanacname" type="hidden" value="zax_hzoffice" disabled="disabled"/>
+<input id="distoken" name="distoken" type="hidden" value="" />
+
+<!-- 涪陵认证参数 -->
+<input id="userIp" name="userIp" type="hidden" value="172.17.100.134" disabled="disabled"/>
+<input id="echostr" type="hidden" name="echostr" value=""/>
+
+<input id="wlanacip" name="wlanacip" type="hidden" value="192.16.100.2" disabled="disabled"/>
+<input id="ssid" type="hidden" value=""/>
+<input id="vlan" type="hidden" value="22"/>
+<input id="mac" type="hidden" value="AC:1F:6B:A1:12:AD"/>
+<input id="initUrl" type="hidden" value="http://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com" name="url"/> <!-- 终端原访问URL -->
+<input id="errMessage" type="hidden" value=""/>
+<input id="wispr_userId" type="hidden" value="" disabled="disabled" /> <!-- wispr认证的帐号 -->
+<input id="wispr_passwd" type="hidden" value="" disabled="disabled" /> <!-- wispr认证的密码 -->
+<input id="f_Qv" type="hidden" value="" name="f_Qv" disabled="disabled"/> <!-- moto ac/ap 参数 -->
+<input id="hs_server" type="hidden" value="" name="f_hs_server"  disabled="disabled"/><!-- moto ac/ap 参数 -->
+
+<input id="portalVer_bean" type="hidden" value="" disabled="disabled" /><!-- wispr无需查找网关参数 -->
+<input id="typeid_bean" type="hidden" value="" disabled="disabled" /><!-- wispr无需查找网关参数 -->
+<input id="realTerminalType" type="hidden" value="a" disabled="disabled" /><!-- 实际终端类型 -->
+<input id="operatorastrict" type="hidden"  value="0,1,2,3" disabled="disabled" /><!-- 运营商限制  短信-->
+
+
+<input id="serverAddress" type="hidden" value="120.236.218.227:8083" disabled="disabled" />
+
+
+
+<!-- 微信连wifi控制项start -->
+<input id="wisprauth" type="hidden" value="" disabled="disabled" />
+<input id="autouserid" type="hidden" value="" disabled="disabled" />
+<input id="autopasswd" type="hidden" value="" disabled="disabled" />
+<input id="isautoauth" name="isautoauth" type="hidden" value="" />
+<input id="isopengzauth" type="hidden" value="" disabled="disabled" />
+<input id="ismustgz" type="hidden" value="" disabled="disabled" />
+<input id="timestamp" type="hidden" value="0" disabled="disabled"/>
+<input id="secretkey" type="hidden" value="" disabled="disabled" />
+<input id="shop_id" type="hidden" value="" disabled="disabled" />
+<input id="bssid" type="hidden" value="" disabled="disabled" />
+<input id="wxSSID" type="hidden" value="" disabled="disabled" />
+<input id="appid" type="hidden" value="" disabled="disabled" />
+<input id ="goPageName" type="hidden" value="" disabled="disabled"/>
+<input id="isIosAuthPop" type="hidden" value="" disabled="disabled"/>
+
+<!-- 微信连wifi控制项end -->
+
+<input id="onlinepayvalue" type="hidden" value=" " disabled="disabled"/>
+
+<!---微信绑手机号--->
+<input type="hidden" id="openId" value=""/>
+<input type="hidden" id="wxcheckmobile" value=""/><!-- 微信手机验证 -->
+<input type="hidden" id="selfLoginUrl" value="" />
+<input type="hidden" id="modifyPwdFlag" value="1" />
+
+<!--自己添加的获取真实IP地址-->
+
+<input id ="realip" type="hidden" value="172.17.100.134" disabled="disabled"/>
+<!--浮动信息-->
+<input type="hidden" value="/portal/uploads/pc/hb_pay/images/rrs_bg.jpg" name="notice_pic_float" />
+	<div class="content_warp">
+		<div class="top">
+			<div class="content">
+				<div class="logo">
+					<img src="/portal/uploads/pc/hb_pay/images/logo.jpg"> <span
+						class="line">|</span> <span class="sname">校园网实名认证系统</span>
+				</div>
+			</div>
+		</div>
+		<div class="main_warp">
+			<div class="main_form">
+				<div class="show_pic"
+					style="background-image: url(/portal/uploads/pc/hb_pay/images/rrs_bg.jpg); background-size: 100% 100%;">
+				</div>
+				<div class="content">
+					<div class="login_form">
+						<!--认证前-->
+						
+
+							<div>
+								<div class="layui-form-item active">
+									<div class="layui-input-block">
+										<i class="layui-icon">&#xe612;</i> <input type="text"
+											id="userId" name="userId" value=""
+											autocomplete="off" placeholder="请输入上网账号" class="layui-input"
+											tabindex=1>
+									</div>
+									<span class="account toggle_account_message"><i
+										class="layui-icon">&#xe688;</i>查看账号格式</span>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<i class="layui-icon">&#xe62a;</i> <input type="password"
+											id="passwd" name="passwd" value=""
+											autocomplete="off" placeholder="请输入密码" class="layui-input"
+											tabindex=2>
+									</div>
+								</div>
+								 
+								
+								<div class="pwd" style="margin-bottom: 10px;">
+									<a id="remInfo" name="remInfo" class="divCheckBoxNoSel"></a>记住密码
+								</div>
+								
+								<div class="layui-form-item">
+									<button id="submitForm" type="button"
+										class="layui-btn layui-btn-normal layui-btn-big" tabindex=4>登录</button>
+								</div>
+								 
+								<div class="layui-form-item" style="text-align: center;">
+									<a href="http://1.1.1.1:8888" target="_blank"
+										style="color: #4787ed;">自助服务</a>&nbsp;
+										<!--|&nbsp; <a	href="#" id="slefRegister" style="color: #4787ed;">学生注册</a> -->
+								</div>
+								<div
+									class="account_message layui-anim layui-anim-fadeout layui-hide">
+									<div>
+										<i class="layui-icon triangle">&#xe623;</i>
+										<p class="title">账号格式：</p>
+										<span class="close toggle_account_message"><i
+											class="layui-icon">&#x1007;</i>隐藏</span>
+										<p>
+											<span>校园网用户：</span> 输入学号
+										</p>
+								
+
+									</div>
+								</div>
+								<div
+									class="error_message layui-anim layui-anim-scaleSpring layui-hide"></div>
+							</div>
+						
+						<!--认证后-->
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="foot">
+			<div class="content">
+				<div class="title">
+					<ul>
+						<li class="active"><i
+							class="layui-icon">&#xe645;</i>系统公告<i class="layui-icon triangle">&#xe623;</i></li>
+						<!-- <li onclick="change_message(this,'help_message')"><i class="layui-icon">&#xe607;</i>使用帮助<i class="layui-icon triangle">&#xe623;</i></li>-->
+					</ul>
+				</div>
+				<!--文字信息-->
+				  
+				<div class="list" style="height: 120px;overflow: scroll;">
+				<span style="color:#E53333;"><strong>提示：登录后请及时修改初始密码，在公共电脑上网的用户，请离开时及时注销认证，用户注销界面http://1.1.1.1。<br />
+</strong></span>
+				</div>
+				
+				<div class="layui-clear"></div>
+			</div>
+		</div>
+		<div class="copyright">
+			<span>Copyright © 2019 仲恺农业工程学院</span><span></span>
+		</div>
+	</div>
+	<script>
+$(function() {
+	  $(".toggle_account_message").on("click",function(){
+        var _account_message = $(".account_message");
+        var _toggle_account_message = $(".account.toggle_account_message");
+        _toggle_account_message.toggleClass("layui-hide");
+        _account_message.removeClass("layui-hide");
+         _account_message.toggleClass("layui-anim-fadeout").toggleClass("layui-anim-fadein");
+        _account_message.hasClass("layui-anim-fadeout")? _account_message.addClass("layui-hide"):"";
+    });
+	
+		var remInfo = $("#remInfo");
+		remInfo.on("click",function(){
+			 remInfo.toggleClass("divCheckBoxSel");
+			remInfo.toggleClass("divCheckBoxNoSel");
+		});	
+		
+		$("#termsDesc").on("click",function(){
+			$(this).toggleClass("divCheckBoxSel");
+			$(this).toggleClass("divCheckBoxNoSel");
+		});
+
+		
+});
+</script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/xadmin/lib/layui/css/layui.css">
+
+<!-- 认证前全屏广告（视频） -->
+<div id="first_allscreen" class="slideBox" style="display: none;">
+	<ul id="first_allscreen_desc" class="items"></ul>
+</div>
+
+<!-- 认证前全屏广告（图片） -->
+<div id="notice_pic_first" class="slideBox" style="display: none;">
+	<ul id="notice_first" class="items"></ul>
+</div>
+
+<!-- 下沉的透明提醒 -->
+<div id="openWxFixed"
+	style="z-index: 999999;position: fixed; bottom: 0px; left: 0px; width: 100%; height: 4.5%; text-align: center; display: none; background:rgba(0, 0, 0, 0.92); opacity: 0.75; font-size: 1.2em;color:#62FF00;"></div>
+
+<!-- 认证中全屏广告（视频） -->
+<div id="center_allscreen" class="slideBox" style="display: none;">
+	<ul id="center_allscreen_desc" class="items"></ul>
+</div>
+
+<!-- 认证中全屏广告（图片） -->
+<div id="notice_pic_center" class="slideBox" style="display: none;z-index: 10000;width:100%;height:100%;">
+	<ul id="notice_center" class="items" style="height:100%;"></ul>
+</div>
+
+<!-- 浮动广告 -->
+<div id="floatNotice" style="position: fixed; display: none;"></div>
+<script src="/js/jquery.hDialog.js"></script>
+
+
+
+  
+		<script>window.questJSON = [];</script>
+  
+  
+
+<script type="text/javascript">
+	window.noticeJSON = []; //设置全局广告变量
+	window.clientWidth = $(window).width(); //获取屏幕宽度，设置全局变量
+	window.clientHeight = $(window).height(); //获取屏幕高度，设置全局变量
+	window.httpUrl = "http://" + window.location.host;
+	var tmpTag = "https:" == document.location.protocol ? false : true;
+	if (tmpTag) {
+		window.httpUrl = "http://" + window.location.host;
+	} else {
+		window.httpUrl = "https://" + window.location.host;
+	}
+	window.tripFailTime = 5 * 1000; //设置错误消息提示时间为5S。
+	if(window.console){
+		console.log("当前URL：" + httpUrl);
+	}
+	//问候语
+	var now = new Date(),hour = now.getHours()
+	var act=$("#act").val();
+	console.log("当前时间："+hour+",act:"+act);
+	if(hour < 6){
+		$("#dateMessage").html('凌晨好，欢迎使用网络！');
+	}else if (hour < 9){
+		$("#dateMessage").html("早上好，欢迎使用网络！");
+	}else if (hour < 12){
+		$("#dateMessage").html("上午好，欢迎使用网络！");
+	}else if (hour < 14){
+		$("#dateMessage").html("中午好，欢迎使用网络！");
+	}else if (hour < 17){
+		$("#dateMessage").html("下午好，欢迎使用网络！");
+	}else if (hour < 19){
+		$("#dateMessage").html("傍晚好，欢迎使用网络！");
+	}else if (hour < 23){
+		$("#dateMessage").html("晚上好，欢迎使用网络！");
+	}else{
+		$("#dateMessage").html("欢迎使用网络，夜深了，请注意休息！");
+	}
+
+	if(act=='LOGINSUCC'){
+		$("#dateMessage").hide();
+		var accountId=$("#connUserId").val();
+		var message="";
+		if(hour < 6){
+			message='凌晨好！';
+		}else if (hour < 9){
+			message='早上好！';
+			//$("#successTitle").html("早上好！");
+		}else if (hour < 12){
+			message='上午好！';
+			//$("#successTitle").html("上午好！");
+		}else if (hour < 14){
+			message='中午好！';
+			//$("#successTitle").html("中午好！");
+		}else if (hour < 17){
+			message='下午好！';
+			//$("#successTitle").html("下午好！");
+		}else if (hour < 19){
+			message='傍晚好！';
+			//$("#successTitle").html("傍晚好！");
+		}else if (hour < 23){
+			message='晚上好！';
+			//$("#successTitle").html("晚上好！");
+		}else{
+			message='夜深了，请注意休息！';
+			//$("#successTitle").html("夜深了，请注意休息！");
+		}
+		console.log(accountId)
+		if(accountId!=""){
+			message=accountId+"，"+message;
+			$("#successTitle").html(message);
+		}else{
+			$("#successTitle").html(message);
+
+		}
+
+	}
+</script>
+
+<!-- wispr的上线下线函数 -->
+<iframe id="logoutFrame" style="display: none;" src=""></iframe>
+<iframe id="loginFrame" style="display: none;" src=""></iframe>
+
+<script type="text/javascript">
+			var motoCount = 1;
+			var interval;
+			var  tip = $("#openWxFixed");
+			//脚本方式跳转页面
+			function JsRedirect() {
+				if (motoCount >= 0) {
+					$("body").append('<iframe src="/portal/moto_wispr.html" style="display:none;"></iframe>');
+				} else {
+					clearTimeout(interval);
+				}
+				--motoCount;
+			}
+
+			// wispr下线后处理
+			function wisprLogoutDo(){
+				var portalVer = $("#portalVer").val();
+				if(portalVer == '3') {//wispr才处理
+					$.tooltip('提交下线成功!', tripFailTime, false);
+					autoClose();
+				}
+			}
+
+			function autoClose(){
+				var numTime = 6;
+				tip.show();
+				var interval = setInterval(function() {
+					--numTime;
+					showTip(numTime, tip); // 显示倒计时
+					if (numTime == 0) {
+						showTip(numTime, tip); // 重置消息
+						clearTimeout(interval);
+						closeW();
+					}
+				}, 1000);
+			}
+
+			function  showTip(num, tip_obj){
+				if(num>0){
+					$(tip_obj).html(num+'秒后将自动关闭页面!');
+				}else{
+					$(tip_obj).html('已提交下线!页面不支持自动关闭!');
+				}
+
+			}
+			function closeW(){
+				var userAgent = navigator.userAgent;
+				if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Presto") != -1) {
+					window.location.replace("about:blank");
+				} else {
+					window.opener = null;
+					window.open("", "_self");
+					window.close();
+				}
+			}
+		//定时器
+		function autoSetTimeOut() {
+			motoCount = 1;
+			interval = setInterval(JsRedirect, 1000);
+		}
+		// wispr协议离线函数
+		function wispr_logout_deal(closeFlag) {
+			var tservertypeid = $("#tservertypeid").val();
+			var tserverip = $("#tserverip").val();
+			var src ="";
+			if (tservertypeid == 'aruba') {
+				src = "http://" + tserverip + "/auth/logout.html";
+			}else 	if (tservertypeid == 'ruckus') {
+				src = "http://" + tserverip + ":9997/logout";
+			}else if (tservertypeid == 'motorola') { //MOTO
+				src = "/portal/moto_discon.html";
+				autoSetTimeOut();
+			}else 	if (tservertypeid == 'axe') {
+				src = "http://1.1.1.1/userlogout.massrv?pap=0";
+			}else if(tservertypeid == 'mikrotik') {//RouterOS
+				//var splitUrl = $("#initUrl").val();
+				//http://172.31.0.1/logout 默认下线的
+
+				//if(typeof(splitUrl) == 'undefined' || splitUrl==null || splitUrl ==''){
+				//	splitUrl = $("#f_Qv").val();
+				//}
+
+				var splitUrl = $("#f_Qv").val();
+				//alert("f_Qv:"+splitUrl);
+
+				if(splitUrl.split(",").length > 1){
+					splitUrl = splitUrl.split(",")[0];
+				}
+				var  k = splitUrl.indexOf("login");
+				var	iInitHead =  splitUrl.indexOf("https");
+				if(window.console){	console.log(splitUrl.substring(0,k));		}
+				splitUrl = splitUrl.substring(0,k);
+				if(iInitHead != -1){ //替换https replace方法不起效果
+						splitUrl = "http"+splitUrl.substring(5,splitUrl.length);
+				}
+				src = splitUrl+"logout";
+				//alert("src:"+src);
+
+			}else 	if (tservertypeid == 'fc') {
+				src = "http://1.1.1.1/cgi-bin/ace_web_auth.cgi?logout=1&login_page=http://163.com";
+			}
+			if(window.console){	console.log("已提交下线"+tservertypeid+",url:"+src );	}
+
+			$("#logoutFrame").attr("src", src);
+
+			if(closeFlag=='1'){
+				//alert(closeFlag);
+				wisprLogoutDo();
+			}
+
+			//	alert("已提交下线");
+			//var urlPam = $("#urlParameter").val();
+			//$("#goLoginForm").attr("action", "/webdisconn.do?" + urlPam).submit();
+		}
+
+
+		// wispr协议认证函数
+		function wispr_login_deal(autouserid,autopasswd) {
+			var tservertypeid = $("#tservertypeid").val();
+			var portalAuthUrl="";
+			if (tservertypeid == 'aruba') {//ARUBA
+				portalAuthUrl = "http://securelogin.arubanetworks.com/auth/index.html/u?username=" + autouserid + "&password=" + autopasswd;
+			} else if (tservertypeid == 'arubaap') {// ARUBAAP
+				portalAuthUrl = "http://securelogin.arubanetworks.com/cgi-bin/login?user=" + autouserid + "&password=" + autopasswd + "&cmd=authenticate";
+			} else if (tservertypeid == 'motorola') { //MOTO
+				portalAuthUrl = "/portal/moto_wispr.html";
+				autoSetTimeOut();
+			}else if (tservertypeid == 'ruckus') {//优科
+				portalAuthUrl = "http://" + $("#wlanacip").val() + ":9997/login?username=" + autouserid + "&password=" + autopasswd + "&cmd=authenticate";
+			}else if(tservertypeid == 'axe'){// 石斧
+				portalAuthUrl =  "http://1.1.1.1/userlogin.massrv?pap=0&userid="+ autouserid + "&passwd="+autopasswd;
+			}else if(tservertypeid == 'mikrotik') {//RouterOS
+					var splitUrl = $("#initUrl").val();
+					if(typeof(splitUrl) == 'undefined' || splitUrl==null || splitUrl ==''){
+						splitUrl = $("#f_Qv").val();
+					}
+					if(splitUrl.split(",").length > 1){
+						splitUrl = splitUrl.split(",")[0];
+					}
+					var	iInitHead =  splitUrl.indexOf("https");
+					if(iInitHead != -1){ //替换https replace方法不起效果
+						splitUrl = "http"+splitUrl.substring(5,splitUrl.length);
+					}
+					//http://172.31.0.1/login?username=1&password=1
+					portalAuthUrl = splitUrl+"?username="+autouserid+"&password="+autopasswd;
+			}else if(tservertypeid == 'fc'){// fc
+				portalAuthUrl =  "http://1.1.1.1/cgi-bin/ace_web_auth.cgi?btlogin=Login&username="+ autouserid + "&userpwd="+autopasswd;
+			}else if(tservertypeid == 'extreme'){// 极进网络
+				portalAuthUrl =  "http://"+ $("#wlanacip").val() + "/req.php?url=any-value-here&username="+ autouserid + "&password="+autopasswd;
+ 				console.log("打开页面："+portalAuthUrl);
+ 				location.href = (portalAuthUrl);
+ 				return;
+			}
+			$("#loginFrame").attr("src", portalAuthUrl);
+			//	tip.html(portalAuthUrl).show();
+			if(window.console){console.log("已提交认证："+tservertypeid+",url:"+portalAuthUrl );}
+
+		}
+
+
+</script>
+
+<!-- 认证后需要加载的内容 -->
+
+</form>
+
+
+<!-- 所见即所得广告 -->
+
+
+<!-- 错误信息提示 -->
+<form id="command" action="/webauth.do;JSESSIONID-BOSS-2=0226A88B761589A4E2EE55DED44C7CDD?wlanacip=192.16.100.2&amp;amp;wlanacname=zax_hzoffice&amp;amp;wlanuserip=172.17.100.134&amp;amp;mac=ac:1f:6b:a1:12:ad&amp;amp;vlan=22&amp;amp;url=http://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com" method="post">
+	<script type="text/javascript">
+		var s = '';
+		console.log(s);
+		if (s != '') {
+			var g = "<span.*?>(.*?)</span>";
+			var tem = s.match(g)[1];
+			$.tooltip(tem, tripFailTime, false);
+		}
+
+		var wxcode = '';
+		var contenErr = '';
+		if (wxcode == '1') {
+			contenErr = "微信客户端异常，未能获取到openId";
+		} else if (wxcode == '2') {
+			contenErr = "没有匹配到微信用户的openId";
+		} else if (wxcode == '5') {
+			contenErr = "没有找到对应的Portal页面";
+		} else if (wxcode == '6') {
+			contenErr = "没有找到对应的网关信息";
+		} else if (wxcode == '3') {
+			contenErr = "未找到匹配的公众号配置信息";
+		} else if (wxcode == '4') {
+			contenErr = "未关注公众号,需关注公众号才可以畅享网络";
+		}else if (wxcode == '7') {
+			contenErr = "请通过短信绑定手机号码";
+		}
+
+
+		if (contenErr != '') {
+			$.tooltip(contenErr, tripFailTime, false);
+		}
+	</script>
+</form>
+
+<!-- 开通了微信连WIFI -->
+<!--c:if test="false"-->
+	
+		<script type="text/javascript" src="/portal/js/pcauth.js"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$(window).bind('load', function() {
+				var height = $(window).height()
+				$(".main").css('height', height);
+			});
+		});
+	</script>
+	<div class="main"
+		style="position: fixed; bottom: 0px; left: 0px; width: 100%; text-align: center; display: none; background: rgb(255, 255, 255); opacity: 0.5; color: rgb(0, 0, 0); font-size: 1.2em;">
+		<!--建议图片大小为 1920x1200 或 1920x1080-->
+		<div class="main__content-qrcode" id='qrcode_zone' style="text-align: center; margin: 20px auto; width: 250px;"></div>
+	</div>
+	<!-- apple自动弹出快速认证 -->
+	<iframe id="autoAuthPost" src="" style="display: none;"></iframe>
+
+	<!-- 唤醒微信客户端前快速认证 -->
+	<iframe id="openWxAuth" src="" style="display: none;"></iframe>
+
+	<script type="text/javascript" src="/portal/js/jquery.md5.js"></script>
+   <script type="text/javascript" src="/xadmin/lib/layui/layui.js" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		/* 判断是否为pc端 */
+		function IsPC() {
+			var userAgentInfo = navigator.userAgent;
+			var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+			var flag = true;
+			for (var v = 0; v < Agents.length; v++) {
+				if (userAgentInfo.indexOf(Agents[v]) > 0) {
+					flag = false;
+					break;
+				}
+			}
+			return flag;
+		}
+		function isMobile() {
+			var userAgentInfo = navigator.userAgent;
+			var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+			var mobile_flag = false;
+			//根据userAgent判断是否是手机
+			for (var v = 0; v < mobileAgents.length; v++) {
+				if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+					mobile_flag = true;
+					break;
+				}
+			}
+			var screen_width = window.screen.width;
+			var screen_height = window.screen.height;
+
+			//根据屏幕分辨率判断是否是手机
+			if(screen_width < 500 && screen_height < 800){
+				mobile_flag = true;
+			}
+			return mobile_flag;
+		}
+	</script>
+	<script type="text/javascript">
+	var mobile_flag = isMobile();
+	//var width="100%",height="100%";
+	var width="80%",height="90%";
+	if(mobile_flag){
+		width='100%';
+		height='100%';
+	}
+	layui.use(['layer','upload','jquery' ], function() {
+			var layer = layui.layer;
+			var upload = layui.upload;
+			var $ = layui.jquery;
+			$("#recognize").change(function(){
+				   	var formData = new FormData();
+				    var file = document.getElementById('recognize').files[0];
+				    formData.append("file", file);
+	               	console.log(formData);
+	                $.ajax({
+	                   url: "/recognizeUpload.do",
+	                   data: formData,
+	                   type: "post",
+	                   dataType: "json",
+	                   cache: false,//上传文件无需缓存
+	                   processData: false,//用于对data参数进行序列化处理 这里必须false
+	                   contentType: false, //必须
+	                   success: function (res) {
+	                	   	if(res!=null&&res.errcode=="0"){
+	                	   		 var photo=res.errmsg;
+	                	   		 console.log("photo:"+photo);
+									 $.ajax({
+										    type : "POST",
+											url: "/recognize.do",
+											data:{
+												photo:photo
+											},
+											dataType:"json",
+										    success: function (json) {
+					                	   				if(json!=null&&json.errcode=="0"){
+										   				 	layer.msg(json.errmsg+",正在自动认证中，请稍后...", {offset: 't',anim: 6,time:2000},function(){
+															$("#userId").val(json.data.accountId);
+															$("#passwd").val(json.data.accountPwd);
+															$('#submitForm').trigger("click");
+										    	});
+											}else{
+												layer.msg("", {offset : 't',anim : 6});
+											}
+
+										    },
+											error: function(json){
+												layer.msg("人脸识别请求出错", {offset : 't',anim : 6});
+											}
+									});
+	                	   	}else{
+								layer.msg("人脸识别失败，请重新识别", {offset : 't',anim : 6});
+                	   		}
+	                   },
+	               });
+			});
+			//PC自助忘记密码
+			$("#modify").click(function(){
+				 layer.open({
+						type:2,
+						title: 'PORTAL忘记密码',
+						maxmin: true,//最大最小化
+						btn:[],
+						closeBtn: 1,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+					 	content: '/self/toResetPassword.do'
+					});
+			});
+			//手机自助忘记密码
+			$("#mbModify").click(function(){
+				 layer.open({
+						type:2,
+						title: 'PORTAL忘记密码',
+						maxmin: true,//最大最小化
+						btn:[],
+						closeBtn: 1,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+						content: '/self/toResetPassword.do'
+					});
+			});
+			//portal修改密码
+			$("#modifyPortal").click(function(){
+				var accountId=$("#connUserId").val();
+				if(!accountId){
+					layer.msg("账号认证异常，无法打开操作页面", {
+						offset : 't',
+						anim : 6
+					});
+					return ;
+				}
+				 layer.open({
+						type:2,
+						title: '欢迎您使用PORTAL修改密码',
+						maxmin: true,//最大最小化
+						btn:[],
+						closeBtn: 1,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+						content: '/self/toChangePassword.do?accountId='+accountId
+					});
+			});
+
+			$("#gotoMessage").click(function(){
+				 layer.open({
+						type:2,
+						title: '欢迎您阅读Portal上网服务条款',
+						btn:['我已阅读并同意全部服务条款'],
+						closeBtn: 0,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+						content: '/gotoBmessage.do?portalId=4'
+						,yes: function(index, layero){
+							layer.closeAll();
+					     }
+					});
+			});
+			$("#gotoMessage").click(function(){
+				 layer.open({
+						type:2,
+						title: '欢迎您阅读PORTAL上网服务条款',
+						btn:['我已阅读并同意全部服务条款'],
+						closeBtn: 0,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+						content: '/gotoBmessage.do?portalId=4'
+						,yes: function(index, layero){
+							layer.closeAll();
+					     }
+					});
+			});
+			$("#slefRegister").click(function(){
+				var width1="80%",height1="90%";
+				if(mobile_flag){
+					width1='100%';
+					height1='100%';
+				}
+				var portalId=$("#pageid").val();
+				var wlanacip=$("#wlanacip").val();
+				var wlanuserip=$("#wlanuserip").val();
+				var wlanacname=$("#wlanacname").val();
+
+				/*
+				 * 支付流程什么情况下需要临时认证
+				 * 手机内网环境下需要临时认证，电脑支付宝环境下需要临时认识(跳支付宝网关支付使用)
+				 * 系统参数配置的公网地址在支付流程中只有H5支付场景下用到
+				 */
+				// 当前用户是内网环境
+				if(isIntranetIp()){
+					authPortalWx(); // 临时认证
+				}
+	        	var bankReturHostIp='http://120.236.218.227:8083'; // 公网地址
+				var toRegister="/self/toRegister.do?portalId="+portalId+"&wlanuserip="+wlanuserip+"&wlanacname="+wlanacname+"&distoken="+distoken;
+				if(mobile_flag){
+					// 配置公网地址
+					if(bankReturHostIp!="http://") {
+						toRegister=bankReturHostIp+toRegister; // 公网地址+跳转链接
+					}
+					console.log("移动端自注册访问URL:"+toRegister);
+					window.location.href = toRegister;
+				} else {
+					// 本地地址+跳转链接
+					console.log("自注册访问URL："+toRegister);
+					layer.open({
+						type:2,
+						title: 'PORTAL账号注册',
+						maxmin: true,//最大最小化
+						btn:[],
+						closeBtn: 1,
+						shade: 0.6,
+						shadeClose: false, //chick shadeClose否点击遮罩关闭
+						area: [width,height],
+						content: toRegister
+					});
+				}
+
+
+			});
+
+			$("#slefLogin").click(function(){
+				var selfLoginUrl=$("#selfLoginUrl").val();
+				if(!selfLoginUrl){
+					layer.msg("PORTAL页面暂无自助管理访问配置", {
+						offset : 't',
+						anim : 6
+					});
+					return;
+				}
+				layer.open({
+					type:2,
+					title: 'PORTAL自助管理',
+					maxmin: true,//最大最小化
+					btn:[],
+					closeBtn: 1,
+					shade: 0.6,
+					shadeClose: false, //chick shadeClose否点击遮罩关闭
+					area: [width,height],
+					content: selfLoginUrl
+				});
+			});
+
+
+			$("#broadspeed").click(function(){
+				var accountId=$("#connUserId").val();
+				if(!accountId){
+					layer.msg("账号认证异常，无法打开操作页面", {
+						offset : 't',
+						anim : 6
+					});
+					return;
+				}
+				var speedUrl="/self/broadSpeedPay.do?accountId="+accountId;
+				layer.open({
+					type:2,
+					title: '欢迎您使用PORTAL宽带提速自助办理页面',
+					maxmin: true,//最大最小化
+					btn:[],
+					closeBtn: 1,
+					shade: 0.6,
+					shadeClose: false, //chick shadeClose否点击遮罩关闭
+					area: [width,height],
+					content: speedUrl
+				});
+			});
+
+			$("#slefChangeGroup").click(function(){
+				
+				//认证前的需要先判断帐号密码存在，再临时认证，再跳
+				if ($("#userId").val() == "") {
+					$.tooltip('未填写用户帐号', tripFailTime, false);
+					$("#userId").focus();
+					return false;
+				}
+
+				if ($("#passwd").val() == "") {
+					$.tooltip('未填写密码', tripFailTime, false);
+					$("#passwd").focus();
+					return false;
+				}
+
+				var userId = $("#userId").val();
+				var passwd = $("#passwd").val();
+				$.ajax({
+					url : "/httpservice/checkUserPwdGeneral.do",
+					type : "POST",
+					data : {
+						userId : userId,
+						passwd : passwd
+					},
+					dataType : "json",
+					success : function(json) {
+						switch (json.check) {
+							case '0':
+								$.tooltip('验证成功,正跳转到变更套餐页面...', tripFailTime, false);
+								setTimeout(toChangeGroup, 2000);
+								break;
+							case '1':
+								$.tooltip('参数为空', tripFailTime, false);
+								break;
+							case '2':
+								$.tooltip('帐号不存在', tripFailTime, false);
+								break;
+							case '3':
+								$.tooltip('密码错误', tripFailTime, false);
+								break;
+						}
+					},
+					error : function(json) {
+						$.tooltip('变更套餐验证帐号异常!', tripFailTime, false);
+					}
+				});
+				
+			});
+
+
+			$("#slefChangeOperator").click(function(){
+				
+				//认证前的需要先判断帐号密码存在，再临时认证，再跳
+				if ($("#userId").val() == "") {
+					$.tooltip('未填写用户帐号', tripFailTime, false);
+					$("#userId").focus();
+					return false;
+				}
+
+				if ($("#passwd").val() == "") {
+					$.tooltip('未填写密码', tripFailTime, false);
+					$("#passwd").focus();
+					return false;
+				}
+
+				var userId = $("#userId").val();
+				var passwd = $("#passwd").val();
+				$.ajax({
+					url : "/httpservice/checkUserPwdGeneral.do",
+					type : "POST",
+					data : {
+						userId : userId,
+						passwd : passwd
+					},
+					dataType : "json",
+					success : function(json) {
+						switch (json.check) {
+							case '0':
+								$.tooltip('验证成功,正跳转到更新运营商页面...', tripFailTime, false);
+								setTimeout(toChangeOperator, 2000);
+								break;
+							case '1':
+								$.tooltip('参数为空', tripFailTime, false);
+								break;
+							case '2':
+								$.tooltip('帐号不存在', tripFailTime, false);
+								break;
+							case '3':
+								$.tooltip('密码错误', tripFailTime, false);
+								break;
+						}
+					},
+					error : function(json) {
+						$.tooltip('更新运营商信息验证帐号异常!', tripFailTime, false);
+					}
+				});
+				
+			});
+
+
+			$("#slefRemoveMac").click(function(){
+				
+				//认证前的需要先判断帐号密码存在，再临时认证，再跳
+				if ($("#userId").val() == "") {
+					$.tooltip('未填写用户帐号', tripFailTime, false);
+					$("#userId").focus();
+					return false;
+				}
+
+				if ($("#passwd").val() == "") {
+					$.tooltip('未填写密码', tripFailTime, false);
+					$("#passwd").focus();
+					return false;
+				}
+
+				var userId = $("#userId").val();
+				var passwd = $("#passwd").val();
+				$.ajax({
+					url : "/httpservice/checkUserPwdGeneral.do",
+					type : "POST",
+					data : {
+						userId : userId,
+						passwd : passwd
+					},
+					dataType : "json",
+					success : function(json) {
+						switch (json.check) {
+							case '0':
+								$.tooltip('验证成功,正跳转到清除MAC页面...', tripFailTime, false);
+								setTimeout(toRemoveMac, 2000);
+								break;
+							case '1':
+								$.tooltip('参数为空', tripFailTime, false);
+								break;
+							case '2':
+								$.tooltip('帐号不存在', tripFailTime, false);
+								break;
+							case '3':
+								$.tooltip('密码错误', tripFailTime, false);
+								break;
+						}
+					},
+					error : function(json) {
+						$.tooltip('清除MAC验证帐号异常!', tripFailTime, false);
+					}
+				});
+				
+			});
+			
+			
+			var browser = {
+					versions : function() {
+						var u = navigator.userAgent, app = navigator.appVersion;
+						return { //移动终端浏览器版本信息
+							trident : u.indexOf('Trident') > -1, //IE内核
+							presto : u.indexOf('Presto') > -1, //opera内核
+							webKit : u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+							gecko : u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+							mobile : !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+							ios : !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+							android : u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+							iPhone : u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+							iPad : u.indexOf('iPad') > -1, //是否iPad
+							webApp : u.indexOf('Safari') == -1
+						//是否web应该程序，没有头部与底部
+						};
+					}(),
+					language : (navigator.browserLanguage || navigator.language).toLowerCase()
+				}
+				if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+			        var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+			        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+						//在微信中打开
+						$("body").html('<img alt="" src="/portal/images/portal_guide.jpg" style="left:0px;top: 0px;position: absolute;">')
+			        }
+			        if (ua.match(/WeiBo/i) == "weibo") {
+						//在新浪微博客户端打开
+						$("body").html('<img alt="" src="/portal/images/portal_guide.jpg" style="left:0px;top: 0px;position: absolute;">')
+			        }
+			        if (ua.match(/QQ/i) == "qq") {
+						//在QQ打开
+						$("body").html('<img alt="" src="/portal/images/portal_guide.jpg" style="left:0px;top: 0px;position: absolute;">')
+			        }
+			        if (browser.versions.ios) {
+						//是否在IOS浏览器打开
+			        } 
+			        if(browser.versions.android){
+						//是否在安卓浏览器打开
+			        }
+				} else {
+			        //否则就是PC浏览器打开
+				}	
+			
+	});
+
+		/**
+		 * 微信连Wi-Fi协议3.1供运营商portal呼起微信浏览器使用
+		 */
+		var loadIframe = null;
+		var noResponse = null;
+		var callUpTimestamp = 0;
+		var distoken="";
+		function putNoResponse(ev) {
+			clearTimeout(noResponse);
+		}
+
+		function errorJump() {
+			var now = new Date().getTime();
+			if ((now - callUpTimestamp) > 4 * 1000) {
+				return;
+			}
+			$.tooltip('该浏览器不支持自动跳转微信请手动打开微信\n如果已跳转请忽略此提示', 4000, false);
+			//alert('该浏览器不支持自动跳转微信请手动打开微信\n如果已跳转请忽略此提示');
+		}
+
+		myHandler = function(error) {
+			errorJump();
+		};
+
+		function createIframe() {
+			var iframe = document.createElement("iframe");
+			iframe.style.cssText = "display:none;width:0px;height:0px;";
+			document.body.appendChild(iframe);
+			loadIframe = iframe;
+		}
+		/*判断地址是否为内网地址*/
+		function isIntranetIp(ip){
+			try {
+				if (!ip){
+					ip = document.domain;
+					if (!ip)
+						ip = window.location.host.split(":")[0];
+				}
+				ip.toLowerCase();
+				console.log('host:'+ip);
+				if(ip.indexOf('localhost')>-1) return true;
+				if(ip.indexOf('1.1.1.1')>-1) return true;
+				var a_ip = 0;
+				if(ip == "") return false;
+				var aNum = ip.split(".");
+				if(aNum.length != 4) return false;
+				a_ip += parseInt(aNum[0]) << 24;
+				a_ip += parseInt(aNum[1]) << 16;
+				a_ip += parseInt(aNum[2]) << 8;
+				a_ip += parseInt(aNum[3]) << 0;
+				a_ip=a_ip>>16 & 0xFFFF;
+				return( a_ip>>8 == 0x7F || a_ip>>8 == 0xA || a_ip== 0xC0A8 || (a_ip>=0xAC10 && a_ip<=0xAC1F) );
+			} catch (e){
+				console.log('判断内网环境异常' + e);
+				return true;
+			}
+		}
+	/*注册回调函数 */
+		function jsonpCallback(result) {
+			if (result && result.success) {
+				if(window.console){
+					console.log('WeChat will call up : ' + result.success + '  data:' + result.data);
+				}
+				var ua = navigator.userAgent;
+				//if (ua.indexOf("iPhone") != -1 || ua.indexOf("iPod") != -1 || ua.indexOf("iPad") != -1) { //iPhone
+				if (ua.indexOf("iPhone") != -1 || ua.indexOf("iPod") != -1 || ua.indexOf("iPad") != -1 || ua.toLocaleLowerCase().indexOf("samsungbrowser") != -1) {   //iPhone
+      				if(isIOSAutoPop()){
+						setTimeout(function(){
+							$.tooltip('已连接到微信，因IOS系统原因无法自动打开微信，请点击右上角完成链接跳转到微信并关注我们的微信公众平台，否则将自动断开无线网络', 4000, false);
+
+						},2500);
+					}
+					noResponse = setTimeout(function () {
+						errorJump();
+					}, 3000);
+
+					document.location = result.data;
+				} else {
+
+					if ('false' == 'true') {
+						$.tooltip('[强制]该浏览器不支持自动跳转微信请手动打开微信\n如果已跳转请忽略此提示', 4000, false);
+						return;
+					}
+
+					createIframe();
+					callUpTimestamp = new Date().getTime();
+					loadIframe.src = result.data;
+					noResponse = setTimeout(function() {
+						errorJump();
+					}, 3000);
+				}
+			} else if (result && !result.success) {
+				if(window.console){
+					console.log(result.data);
+				}
+				if (result.data && result.data.indexOf('get ticket error') > -1) {
+					errorJump();
+				} else {
+					if (result.data && result.data == 'Expired timestamp') {
+						alert(_("终端系统时间异常，请检查终端日期与时间设置"));
+						return;
+					}
+					alert(_("连接失败，请检查微信连Wi-Fi参数"));
+				}
+			}
+		}
+		function isIOSAutoPop(){
+			var ua = navigator.userAgent;
+			var str=ua.substr(ua.indexOf('like Gecko) ')+12);
+			var length=str.split(' ').length;
+			if( length==1 && (ua.indexOf("iPhone") != -1 || ua.indexOf("iPod") != -1 || ua.indexOf("iPad") != -1 || ua.toLocaleLowerCase().indexOf("samsungbrowser") != -1)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		/* 最终调用微信接口 */
+		function Wechat_GotoRedirect(appId, extend, timestamp, sign, shopId, authUrl, mac, ssid, bssid) {
+			//console.log('获取的终端类型：' + $('#terminalType').val() + "(1：电脑 2：手机 3：通用)");
+			//if ($('#terminalType').val() != '2') {
+			if(window.console){
+					console.log('获取的终端类型：' + $('#realTerminalType').val() + "(a：电脑 b：手机)");
+			}
+			var url;
+			if ($('#realTerminalType').val() != 'b') { // pc端
+				if(window.console){
+					console.log('url pc:'+url);
+				}
+				$(".main").show();
+				JSAPI.auth({
+					target : document.getElementById('weixin_wifi_auth_qrcode'),
+					appId : appId,
+					shopId : shopId,
+					extend : extend,
+					authUrl : authUrl + "&PCLianWiFi=PCLianWiFi"
+				});
+			} else { // 移动端
+				//将回调函数名称带到服务器端
+				url = "https://wifi.weixin.qq.com/operator/callWechatBrowser.xhtml?appId=" + appId + "&extend=" + extend + "&timestamp=" + timestamp + "&sign=" + sign;
+
+				//如果sign后面的参数有值，则是新3.1发起的流程
+				if (authUrl && shopId) {
+
+					url = "https://wifi.weixin.qq.com/operator/callWechat.xhtml?appId=" + appId + "&extend=" + extend + "&timestamp=" + timestamp + "&sign=" + sign + "&shopId=" + shopId + "&authUrl=" + encodeURIComponent(authUrl) + "&mac=" + mac + "&ssid=" + ssid + "&bssid=" + bssid;
+
+
+				}	//通过dom操作创建script节点实现异步请求
+
+				//20180105 修改为离线认证方式，改了调用方式
+				/*
+				var weixinUrl = 'weixin://connectToFreeWifi/?apKey=_p33beta&appId='+appId+'&shopId='+shopId+'&authUrl='+encodeURIComponent(authUrl) +'&extend='+extend+'&timestamp='+timestamp+'&sign='+sign;    window.location=weixinUrl;
+				$.tooltip('离线微信认证weixinUrl:'+weixinUrl, 10000, false);
+				window.location=weixinUrl;
+				*/
+
+				if(window.console){
+					console.log('url:'+url);
+				}
+				var script = document.createElement('script');
+				script.setAttribute('src', url);
+				document.getElementsByTagName('head')[0].appendChild(script);
+
+			}
+
+		}
+	</script>
+
+	<script type="text/javascript">
+		var tservertypeid = $("#tservertypeid").val();
+		var portalVer = $("#portalVer").val();
+		var autouserid = 'radius_share';
+		var autopasswd = 'radius_share';
+
+		if ($('#autouserid').length > 0 && $('#autouserid').val() != '') {
+			autouserid = $("#autouserid").val();
+		}
+
+		if ($('#autopasswd').length > 0 && $('#autopasswd').val() != '') {
+			autopasswd = $("#autopasswd").val();
+		}
+	
+		
+
+		/*获取url参数，moto用*/
+		function getQueryVariable(variable) {
+			try {
+				var query = window.location.search.substring(1);
+				var vars = query.split(/[?&]/);
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						if (pair[0] == "Qv") {
+							return vars[i].substr(3, vars[i].length);
+						}
+						return pair[1];
+					}
+				}
+			} catch (err) {
+
+			}
+			return "";
+		}
+
+
+
+		/* 设置暂时放行 */
+		function authPortalWx() {
+			var portalAuthUrl = "";
+			var dateStr = new Date().getTime();
+			dateStr = String(dateStr);
+			daetStr = dateStr.substr(dateStr.length - 8, dateStr.length);
+			console.log("开始临时认证");
+			//alert(daetStr)
+			if (portalVer == '3') { // wisrp
+				wispr_login_deal(autouserid+daetStr,autopasswd);
+			} else {		//普通放行
+				portalAuthUrl = "/quickAuthShare.do?wlanacip=" + $("#wlanacip").val() + "&wlanacname=" + $("#wlanacname").val() + "&userId=" + autouserid + daetStr + "&passwd=" + autopasswd + "&mac=" + $("#mac").val() + "&wlanuserip=" + $("#wlanuserip").val();
+				//$("#openWxAuth").attr("src", portalAuthUrl);
+				 //alert("openwx_auth:" + portalAuthUrl);
+				   $.ajax({
+					   type : "POST",
+					   url: portalAuthUrl, //请求路径
+					   data:{},
+					   dataType:"json",
+					   success: function (json) {
+							if(json.code=='0'){
+								distoken=json.distoken;
+							}else{
+								$.tooltip(json.message, tripFailTime, false);
+							}
+					    },
+					    error: function(json){
+						   //$.tooltip("请求出错，请稍后再试", tripFailTime, false);
+							console.log("临时认证请求出错，请稍后再试");
+					    }
+				   });
+			}
+		}
+
+		//测试临时认证下线
+		function appoffline(){
+			var discoonurl="/httpservice/appoffline.do?wlanacip=" + $("#wlanacip").val() + "&wlanacname=" + $("#wlanacname").val() + "&userId=" + autouserid + daetStr + "&passwd=" + autopasswd + "&mac=" + $("#mac").val() + "&wlanuserip=" + $("#wlanuserip").val()+"&distoken="+distoken;
+			$.ajax({
+				url:discoonurl,
+				type:"POST",
+				data:{},
+				dataType:"JSON",
+				success:function(json){
+					if(json.code=='0'){
+						layer.msg(json.message, {
+							offset : 't',
+							anim : 6
+						});
+						window.location.href="http://1.1.1.1"
+					}else{
+						layer.msg(json.message, {
+							offset : 't',
+							anim : 6
+						});
+					}
+				},
+				error: function (e) {
+					console.log(e);
+					layer.msg('程序异常', {
+						offset : 't',
+						anim : 6
+					});
+				}
+			});
+		}
+
+		/* 打开微信 */
+		function openWxClient() {
+			var appid = $("#appid").val();
+			var extend = $.md5($("#f_Qv").val()) + "temp" + $("#pageid").val() + "temp" + tservertypeid + "temp" + portalVer + "temptrue";
+			if(window.console){
+					console.log("extend:" + extend);
+			}
+			// + "&ssid=" + $("#ssid").val()
+			var timestamp = new Date().getTime();
+			var shop_id = $("#shop_id").val(); // 门店ID
+			var baseUrl = '/wxWifi.do?wlanacname=' + $("#wlanacname").val() + "&vlan=" + $("#vlan").val() + "&wlanacip=" + $("#wlanacip").val() + "&wlanuserip=" + $("#wlanuserip").val() + "&pageid=" + $("#pageid").val() + "&mac=" + $("#mac").val() + "&appid=" + appid + "&hs_server=" + $("#hs_server").val() + "&f_Qv=" + $("#f_Qv").val()  + "&portalVer=" + $("#portalVer_bean").val() + "&typeid=" + $("#typeid_bean").val() + "&wisprauth=" + $("#wisprauth").val();
+			if ($("#otherParam").length > 0) {
+				baseUrl = baseUrl + "&otherParam=" + $("#otherParam").val();
+			}
+
+			if ($('#realTerminalType').val() == 'b') {
+				if($("#initUrl").val()!=''){
+					baseUrl += "&url="+$("#initUrl").val();
+				}
+				if ($('#isopengzauth').length > 0) {
+					baseUrl = baseUrl + "&ismustgz=" + $("#isopengzauth").val();
+					if ($('#isopengzauth').val() == '1') {
+						if(window.console)
+						console.log("开启强制关注模式");
+					}
+				}
+
+				if ($('#isautoauth').length > 0) {
+					baseUrl = baseUrl + "&isautoauth=" + $("#isautoauth").val();
+					if ($('#isautoauth').val() == '1') {
+						if(window.console)
+						console.log("开启临时认证");
+					}
+				}
+			}
+
+			var authUrl = httpUrl + baseUrl; // 认证服务器URL
+			if (tservertypeid == 'aruba' || tservertypeid == 'arubaap') {
+				if(window.console){
+						console.log("aruba_ap或ac,从url获取地址");
+				}
+				authUrl = $("#serverAddress").val() + baseUrl;
+			}
+			if(window.console){
+					console.log("openwx_url:" + authUrl);
+			}
+			var mac = $("#mac").val(); // 客户端MAC地址
+			var ap_ssid = $("#wxSSID").val(); // ap放出的ssid
+			var bssid = $("#bssid").val(); // ap的无线mac地址
+			var secretkey = $("#secretkey").val();
+			var sign = $.md5(appid + extend + timestamp + shop_id + authUrl + mac + ap_ssid + bssid + secretkey); // 加密签名
+			//离线加密
+			//var sign = $.md5(appid + extend + timestamp + shop_id + authUrl + mac + ap_ssid +  secretkey); // 加密签名
+
+			Wechat_GotoRedirect(appid, extend, timestamp, sign, shop_id, authUrl, mac, ap_ssid, bssid);
+		}
+
+		/* 倒计时唤醒微信 */
+		var countSecond = 1;
+		var openWXInterval;
+		function sleepAndOpenWX(second) {
+			countSecond = second;
+			openWXInterval = setInterval(function() {
+				if (countSecond == 0) {
+					if(window.console){
+							console.log("开始唤醒微信");
+					}
+					openWxClient();
+					clearTimeout(openWXInterval);
+				}else {
+					if(window.console)
+						console.log("还剩" + countSecond + "秒才唤醒微信");
+				}
+				countSecond = countSecond - 1;
+			}, 1000);
+		}
+
+		/*点击微信连wifi */
+		$("#wxSwitch").bind("click", function() {
+
+				if ($("#isopengzauth").val() == '1') {
+					$.tooltip('在连接成功后请关注公众号并点击完成才能畅游网络哦!正在打开微信,请稍等..', 4000, false);
+				}else{
+					if (portalVer == '3') { // wisrp
+						$.tooltip('在连接成功后请点击完成才能畅游网络哦!正在打开微信,请稍等..', 4000, false);
+					}else{
+						$.tooltip('正在打开微信,请稍等..', 4000, false);
+					}
+				}
+				if ($("#listwxwifiauth").val() == '1') {
+					if ($("#isautoauth").length > 0 && $("#isautoauth").val() == '1') {
+						if(window.console)
+							console.info('唤醒微信客户端前的临时放行');
+						//20180105 修改为离线认证方式，不要放行
+						if(!isIOSAutoPop()){
+							authPortalWx();
+						}
+					}
+					sleepAndOpenWX(2);
+					//sleepAndDisconn(3);
+				} else {
+					window.location.href = "weixin://";
+				}
+
+
+		});
+		//代拨用户认证时需要异步查询账号的认证信息替换
+
+	//function authMes(){
+		if($("#act").val()=='LOGINSUCC'){
+			var message = $("#errMessage").val();
+			var class1 = document.getElementsByClassName("common2");
+			//console.log(class1);
+			var userId = $("#wispr_userId").val();
+			//console.log('登录的账号是:'+userId);
+			console.log('登录成功的信息:'+message);
+			if(userId!=''&&message != '' && (message.indexOf('现在是代拔')>-1 || message.indexOf('正在进行外网拔号请稍候')>-1 || message.indexOf('正在进行外网拨号请稍候')>-1)){
+				var i = 0;
+				var n = setInterval(function() {
+					i++;
+			        $.ajax({
+			            type : "post",
+			            url: "getAuthResult.do", //请求路径
+						data:{
+							userId : userId
+						},
+						dataType:"json",
+			            success: function (json) {
+			                var result = json.check;//解析ajax处理服务器端返回结果
+			               	console.log(result);
+							console.log('i='+i);
+							if(result != null && result != '' && result != '1'){
+								for(var j = 0;j<class1.length;j++){
+									//console.log(j+'---'+class1[j].innerHTML)
+									if(class1[j].innerHTML.indexOf('正在进行外网拔号请稍候')>-1 || message.indexOf('正在进行外网拨号请稍候')>-1){
+										class1[j].innerHTML =result;
+										break;
+									}
+								}
+								//$(".common2").html(result);
+								clearInterval(n);
+							}else if(i==20){
+								clearInterval(n);
+							}
+
+							for(var j = 0;j<class1.length;j++){
+								//console.log(j+'---'+class1[j].innerHTML)
+								if(class1[j].innerHTML.indexOf('成功')>-1){
+									JsGotoRedirect();
+								}
+							}
+			            },
+						error: function(json){
+							console.log('发送ajax错误,请重新操作');
+						}
+			        });
+			    }, 2000);
+			}else{
+				JsGotoRedirect();
+			}
+
+			//console.log('登录成功');
+		}
+	//}
+		//倒计时跳转到充值页面
+		function sleepAndGoCharge(second,accountId) {
+			var wlanuserip=$("#wlanuserip").val();
+			var wlanacname=$("#wlanacname").val();
+			console.log("开始跳转充值页面wlanuserip:"+wlanuserip+",账号："+accountId);
+			// 当前用户是内网环境
+			if(isIntranetIp()){
+				authPortalWx(); // 临时认证
+			}
+			countSecond = second;
+			openWXInterval = setInterval(function() {
+				if (countSecond == 0) {
+					if(window.console)
+						console.log("开始跳转充值页面");
+					clearTimeout(openWXInterval);
+					var chageUrl="/self/onlineCharge.do?accountId="+accountId+"&wlanuserip="+wlanuserip+"&wlanacname="+wlanacname+"&distoken="+distoken;
+					var mobile_flag = isMobile();
+					var width='90%',height='90%';
+			        if(mobile_flag){
+						var bankReturHostIp= 'http://120.236.218.227:8083';
+						// 有配置公网地址
+						if(bankReturHostIp!="http://") {
+							chageUrl=bankReturHostIp+chageUrl; // 公网地址+跳转链接
+						}
+						window.location.href = chageUrl;
+			        }else{
+						console.log("PC端充值URL:"+chageUrl);
+						 layer.open({
+							type:2,
+							title: 'PORTAL账号充值',
+							maxmin: false,//最大最小化
+							btn:[],
+							closeBtn: 1,
+							shade: 0.6,
+							shadeClose: false, //chick shadeClose否点击遮罩关闭
+							area: [width,height],
+							content: chageUrl+"?accountId="+accountId
+						});
+					}
+				}else {
+					if(window.console)
+						console.log("还剩" + countSecond + "秒才跳转充值页面");
+				}
+				countSecond = countSecond - 1;
+			}, 1000);
+		}
+
+
+		$("#recharge").on("click",function(){
+			 portalCharge();
+		});
+
+
+
+		function portalCharge(){
+			
+	     	//认证前的需要先判断帐号密码存在，再临时认证，再跳
+			if ($("#userId").val() == "") {
+				$.tooltip('未填写用户帐号', tripFailTime, false);
+				$("#userId").focus();
+				return false;
+			}
+
+		 	if ($("#passwd").val() == "") {
+				$.tooltip('未填写密码', tripFailTime, false);
+				$("#passwd").focus();
+				return false;
+			}
+
+			var userId = $("#userId").val();
+			var passwd = $("#passwd").val();
+			var pageid = $("#pageid").val();
+			$.ajax({
+				url : "/httpservice/checkUserPwd.do",
+				type : "POST",
+				data : {
+					userId : userId,
+					passwd:passwd,
+					pageid:pageid
+				},
+				dataType : "json",
+				success : function(json) {
+					//alert(json.cookieValue);
+					switch (json.check) {
+						case '0':
+							$.tooltip('验证成功,正跳转到充值页面...', tripFailTime, false);
+							sleepAndGoCharge(2,json.accountId);
+							break;
+						case '1':
+							$.tooltip('参数为空', tripFailTime, false);
+							break;
+						case '2':
+							$.tooltip('帐号不存在', tripFailTime, false);
+							break;
+						case '3':
+							$.tooltip('密码错误', tripFailTime, false);
+							break;
+						case '4':
+							$.tooltip('账号不允许进行在线充值', tripFailTime, false);
+							break;
+					}
+				},
+				error : function(json) {
+					$.tooltip('充值验证帐号异常!', tripFailTime, false);
+				}
+			});
+			
+		}
+
+		//如果是ios自己连接wifi自动打开的
+		if($("#isIosAuthPop").val()=="1"){
+			//打开微信
+			openWxClient();
+		}
+
+
+		if(isIOSAutoPop()){
+			if ($("#isautoauth").val().length > 0 && $("#isautoauth").val() == '1' && $("#act").val() !='LOGINSUCC') {
+				setInterval(authPortalWx(), 1000);
+			}
+  			var urlParameter=$("#urlParameter").val();
+			var logonUrl="/webauth.do?"+urlParameter+"&isIosAuthPop=1"
+			$("#wxSwitch").attr("target","_system");
+			$("#wxSwitch").attr("href",logonUrl);
+			$("#wxSwitch").attr("id","");
+		}
+
+		// 打开变更套餐页面
+		function toChangeGroup(){
+			var width1="80%",height1="90%";
+			if(isMobile()){
+				width1='100%';
+				height1='100%';
+			}
+			var userId = $("#userId").val()
+			var portalId=$("#pageid").val();
+			var wlanacip=$("#wlanacip").val();
+			var wlanuserip=$("#wlanuserip").val();
+			var wlanacname=$("#wlanacname").val();
+			layer.open({
+				type:2,
+				title: 'PORTAL变更套餐信息',
+				maxmin: true,//最大最小化
+				btn:[],
+				closeBtn: 1,
+				shade: 0.6,
+				shadeClose: false, //chick shadeClose否点击遮罩关闭
+				area: [width,height],
+				content: "/self/toChangeGroup.do?userId="+userId+"&portalId="+portalId+"&wlanacip="+wlanacip+"&wlanuserip="+wlanuserip+"&wlanacname="+wlanacname
+			});
+		}
+
+		function toChangeOperator(){
+			var width1="80%",height1="90%";
+			if(isMobile()){
+				width1='100%';
+				height1='100%';
+			}
+			var userId = $("#userId").val()
+			var portalId=$("#pageid").val();
+			var wlanacip=$("#wlanacip").val();
+			var wlanuserip=$("#wlanuserip").val();
+			var wlanacname=$("#wlanacname").val();
+			layer.open({
+				type:2,
+				title: 'PORTAL变更运营商信息',
+				maxmin: true,//最大最小化
+				btn:[],
+				closeBtn: 1,
+				shade: 0.6,
+				shadeClose: false, //chick shadeClose否点击遮罩关闭
+				area: [width,height],
+				content: "/self/toChangeOperator.do?userId="+userId+"&portalId="+portalId+"&wlanacip="+wlanacip+"&wlanuserip="+wlanuserip+"&wlanacname="+wlanacname
+			});
+		}
+
+		function toRemoveMac(){
+			var width1="80%",height1="90%";
+			if(isMobile()){
+				width1='100%';
+				height1='100%';
+			}
+			var userId = $("#userId").val()
+			var portalId=$("#pageid").val();
+			var wlanacip=$("#wlanacip").val();
+			var wlanuserip=$("#wlanuserip").val();
+			var wlanacname=$("#wlanacname").val();
+			layer.open({
+				type:2,
+				title: 'PORTAL清除MAC地址',
+				maxmin: true,//最大最小化
+				btn:[],
+				closeBtn: 1,
+				shade: 0.6,
+				shadeClose: false, //chick shadeClose否点击遮罩关闭
+				area: [width,height],
+				content: "/self/toRemoveMac.do?userId="+userId+"&portalId="+portalId+"&wlanacip="+wlanacip+"&wlanuserip="+wlanuserip+"&wlanacname="+wlanacname
+			});
+		}
+	</script>
+<!--/c:if-->
+<!-- 页面轮播插件 -->
+<script type="text/javascript" src="/portal/js/jquery.slideBox.js"></script>
+<script type="text/javascript" src="/portal/js/page_init.js"></script>
+<script src="/portal/uploads/pc/hb_pay/jquery.cookie.js"></script>
+<script type="text/javascript">
+layui.use(['layer','jquery' ], function() {
+	$("#slefRegister").click(function(){
+		var portalId=$("#pageid").val();
+		layer.open({
+			type:2,
+			title: '学生注册',
+			maxmin: true,//最大最小化		
+			btn:[],
+			closeBtn: 1,
+			shade: 0.6,
+			shadeClose: false, //chick shadeClose否点击遮罩关闭
+			area: ['60%', '80%'],
+			content: "/self/toRegister.do?portalId="+portalId
+		});
+	});
+});
+</script>
+</body>
+</html>
